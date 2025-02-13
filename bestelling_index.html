@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestelling plaatsen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Bestel je Cargofiets</h2>
+    <form action="betaling.html" method="POST">
+        <label>Naam:</label>
+        <input type="text" name="naam" required>
+        
+        <label>E-mail:</label>
+        <input type="email" name="email" required>
+
+        <label>Adres:</label>
+        <input type="text" name="adres" required>
+
+        <label>Selecteer je betaalmethode:</label>
+        <select name="betaalmethode">
+            <option value="ideal">iDEAL</option>
+            <option value="creditcard">Creditcard</option>
+            <option value="paypal">PayPal</option>
+        </select>
+
+        <button type="submit">Doorgaan naar betaling</button>
+    </form>
+</body>
+</html>
+
