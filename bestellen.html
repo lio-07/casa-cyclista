@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestelling plaatsen</title>
+    <link rel="stylesheet" href="casacyclista.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, button {
+            margin-bottom: 16px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
+            authDomain: "casa-cyclista.firebaseapp.com",
+            projectId: "casa-cyclista",
+            storageBucket: "casa-cyclista.firebasestorage.app",
+            messagingSenderId: "761939951597",
+            appId: "1:761939951597:web:92e9738369ce85d615f1e4",
+            measurementId: "G-0CGXFBFYGG"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form values
+            const naam = document.getElementById('naam').value;
+            const email = document.getElementById('email').value;
+            const adres = document.getElementById('adres').value;
+            const betaalmethode = document.getElementById('betaalmethode').value;
+
+            // Add order to Firestore
+            db.collection('orders').add({
+                naam: naam,
+                email: email,
+                adres: adres,
+                betaalmethode: betaalmethode,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                // Redirect to payment page
+                window.location.href = 'betaling.html';
+            }).catch((error) => {
+                console.error('Error adding document: ', error);
+            });
+        }
+
+        // Add event listener to the form
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', handleFormSubmit);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Bestel je Cargofiets</h2>
+        <form>
+            <label for="naam">Naam:</label>
+            <input type="text" id="naam" name="naam" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="adres">Adres:</label>
+            <input type="text" id="adres" name="adres" required>
+            
+            <label for="betaalmethode">Selecteer je betaalmethode:</label>
+            <select id="betaalmethode" name="betaalmethode">
+                <option value="Klarna">Klarna</option>
+                <option value="PayPal">PayPal</option>
+                <option value="payconiq">payconiq</option>
+            </select>
+
+            <button type="submit">Doorgaan naar betaling</button>
+        </form>
+    </div>
+</body>
+</html>
+
