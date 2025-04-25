@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winkelmand</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f5f5dc; /* Licht beige */
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px; /* Breder voor een professionelere uitstraling */
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #fff; /* Wit voor contrast */
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center; /* Centreer de inhoud */
+      }
+      h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #4caf50; /* Primair groen */
+        margin-bottom: 20px;
+      }
+      #winkelmand-container {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(200px, 1fr)
+        ); /* Zorg voor flexibele kolommen */
+        gap: 20px; /* Voeg ruimte toe tussen de kolommen */
+        justify-content: center;
+      }
+      .product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border: 1px solid #8b4513;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+      }
+      .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .product img {
+        max-width: 100px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .product h3 {
+        font-size: 1.6rem;
+        color: #8b4513;
+        margin-bottom: 10px;
+      }
+      .product p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      .product button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+      .product button:hover {
+        background-color: #388e3c;
+      }
+      .product button.remove {
+        background-color: #e53935; /* Rood voor verwijderen */
+        color: white;
+      }
+      .product button.remove:hover {
+        background-color: #c62828; /* Donkerder rood bij hover */
+      }
+      p {
+        font-size: 1.4rem; /* Maak de tekst iets groter */
+      }
+      .bestelknop {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+      .bestelknop:hover {
+        background-color: #388e3c;
+      }
+      .afrekenen-knop {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+      .afrekenen-knop:hover {
+        background-color: #388e3c;
+      }
+      #verzekering {
+        font-size: 1.2rem; /* Maak de tekst groter */
+        margin-top: 20px; /* Voeg een gap toe boven de verzekeringsoptie */
+        margin-bottom: 20px; /* Voeg een gap toe onder de verzekeringsoptie */
+        padding: 10px; /* Zorg voor wat extra ruimte binnen de select-box */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      label[for="verzekering"] {
+        font-size: 1.4rem; /* Maak de labeltekst groter */
+        margin-bottom: 10px; /* Voeg een kleine ruimte toe onder de label */
+        display: block; /* Zorg ervoor dat de label op een aparte regel staat */
+      }
+    </style>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+      // Firebase configuratie
+      const firebaseConfig = {
+        apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
+        authDomain: "casa-cyclista.firebaseapp.com",
+        projectId: "casa-cyclista",
+        storageBucket: "casa-cyclista.firebasestorage.app",
+        messagingSenderId: "761939951597",
+        appId: "1:761939951597:web:92e9738369ce85d615f1e4",
+        measurementId: "G-0CGXFBFYGG",
+      };
+
+      // Firebase initialiseren
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Winkelmand array
+      const winkelmand = [];
+
+      // Functie om de winkelmand bij te werken
+      function updateWinkelmand() {
+        const winkelmandContainer = document.getElementById(
+          "winkelmand-container"
+        );
+        winkelmandContainer.innerHTML = ""; // Leeg de winkelmand
+
+        winkelmand.forEach((item, index) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.classList.add("product");
+
+          const img = document.createElement("img");
+          img.src = item.image; // Voeg de afbeelding toe
+          img.alt = item.name;
+
+          const h3 = document.createElement("h3");
+          h3.textContent = item.name;
+
+          const p = document.createElement("p");
+          p.textContent = `€${item.price.toFixed(2)} x ${item.quantity} = €${(
+            item.price * item.quantity
+          ).toFixed(2)}`;
+
+          const removeButton = document.createElement("button");
+          removeButton.textContent = "Verwijderen";
+          removeButton.classList.add("remove");
+          removeButton.onclick = () => {
+            if (item.quantity > 1) {
+              item.quantity--; // Verminder het aantal
+            } else {
+              winkelmand.splice(index, 1); // Verwijder het item uit de array
+            }
+            updateWinkelmand(); // Werk de winkelmand bij
+          };
+
+          itemDiv.appendChild(img);
+          itemDiv.appendChild(h3);
+          itemDiv.appendChild(p);
+          itemDiv.appendChild(removeButton);
+
+          winkelmandContainer.appendChild(itemDiv);
+        });
+      }
+
+      // Functie om een product toe te voegen aan de winkelmand
+      function addToWinkelmand(name, price, image, quantity = 1) {
+        const existingItem = winkelmand.find((item) => item.name === name);
+        if (existingItem) {
+          existingItem.quantity += quantity; // Verhoog het aantal als het product al bestaat
+        } else {
+          winkelmand.push({
+            name,
+            price: parseFloat(price),
+            image,
+            quantity,
+          });
+        }
+        updateWinkelmand();
+      }
+
+      // Functie om de gekozen fiets of accessoire weer te geven
+      function renderGekozenItem() {
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name");
+        const price = params.get("price");
+        const image = params.get("image");
+
+        if (name && price && image) {
+          addToWinkelmand(name, price, image);
+        } else {
+          console.error("Geen itemgegevens gevonden in de URL.");
+        }
+      }
+
+      // Roep de functie aan om het gekozen item weer te geven
+      renderGekozenItem();
+
+      // Functie om de winkelmand te vullen met gegevens uit de URL
+      function loadWinkelmandFromURL() {
+        const params = new URLSearchParams(window.location.search);
+
+        params.forEach((value, key) => {
+          if (key.startsWith("item")) {
+            const index = key.replace("item", "");
+            const name = value;
+            const price = parseFloat(params.get(`price${index}`)) || 0;
+            const image = params.get(`image${index}`);
+            const quantity = parseInt(params.get(`quantity${index}`)) || 1;
+
+            addToWinkelmand(name, price, image, quantity);
+          }
+        });
+      }
+
+      // Roep de functie aan om de winkelmand te vullen bij het laden van de pagina
+      loadWinkelmandFromURL();
+
+      // Reference to the cargofietsen collection
+      const cargofietsenRef = collection(db, "products");
+
+      // Functie om cargofietsen weer te geven
+      function renderCargofietsen(doc) {
+        const cargofietsenContainer = document.getElementById(
+          "cargofietsen-container"
+        );
+
+        const fietsDiv = document.createElement("div");
+        fietsDiv.classList.add("product");
+
+        const img = document.createElement("img");
+        img.src = doc.data().image;
+        img.alt = doc.data().name;
+
+        const detailsDiv = document.createElement("div");
+        detailsDiv.classList.add("product-details");
+
+        const h3 = document.createElement("h3");
+        h3.textContent = doc.data().name;
+
+        const p = document.createElement("p");
+        p.textContent = `€${doc.data().price}`;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("bestelknop");
+        button.textContent = "Toevoegen aan winkelmand";
+        button.onclick = () => {
+          alert(`${doc.data().name} toegevoegd aan winkelmand!`);
+          addToWinkelmand(
+            doc.data().name,
+            parseFloat(doc.data().price),
+            doc.data().image
+          );
+        };
+
+        fietsDiv.appendChild(img);
+        detailsDiv.appendChild(h3);
+        detailsDiv.appendChild(p);
+        fietsDiv.appendChild(detailsDiv);
+        fietsDiv.appendChild(button);
+
+        cargofietsenContainer.appendChild(fietsDiv);
+      }
+
+      // Real-time listener voor cargofietsen-collectie
+      onSnapshot(cargofietsenRef, (snapshot) => {
+        const cargofietsenContainer = document.getElementById(
+          "cargofietsen-container"
+        );
+        cargofietsenContainer.innerHTML = ""; // Verwijder bestaande fietsen
+        snapshot.forEach((doc) => {
+          renderCargofietsen(doc);
+        });
+      });
+
+      // Reference to the accessoires collection
+      const accessoiresRef = collection(db, "accessoires");
+
+      // Functie om accessoires weer te geven
+      function renderAccessoires(doc) {
+        const accessoiresContainer = document.getElementById(
+          "accessoires-container"
+        );
+
+        const accessoiresDiv = document.createElement("div");
+        accessoiresDiv.classList.add("product");
+
+        const img = document.createElement("img");
+        img.src = doc.data().image;
+        img.alt = doc.data().name;
+
+        const detailsDiv = document.createElement("div");
+        detailsDiv.classList.add("product-details");
+
+        const h3 = document.createElement("h3");
+        h3.textContent = doc.data().name;
+
+        const p = document.createElement("p");
+        p.textContent = `€${doc.data().price}`;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("bestelknop");
+        button.textContent = "Toevoegen aan winkelmand";
+        button.onclick = () => {
+          alert(`${doc.data().name} toegevoegd aan winkelmand!`);
+          addToWinkelmand(
+            doc.data().name,
+            parseFloat(doc.data().price),
+            doc.data().image
+          );
+        };
+
+        accessoiresDiv.appendChild(img);
+        detailsDiv.appendChild(h3);
+        detailsDiv.appendChild(p);
+        accessoiresDiv.appendChild(detailsDiv);
+        accessoiresDiv.appendChild(button);
+
+        accessoiresContainer.appendChild(accessoiresDiv);
+      }
+
+      // Real-time listener voor accessoires-collectie
+      onSnapshot(accessoiresRef, (snapshot) => {
+        const accessoiresContainer = document.getElementById(
+          "accessoires-container"
+        );
+        accessoiresContainer.innerHTML = ""; // Verwijder bestaande accessoires
+        snapshot.forEach((doc) => {
+          renderAccessoires(doc);
+        });
+      });
+
+      // Afrekenen knop
+      document
+        .querySelector(".afrekenen-knop")
+        .addEventListener("click", () => {
+          const verzekering = document.getElementById("verzekering").value;
+          let verzekeringPrijs = 0;
+
+          // Bepaal de prijs van de verzekering
+          if (verzekering === "diefstal") verzekeringPrijs = 50;
+          else if (verzekering === "schade") verzekeringPrijs = 75;
+          else if (verzekering === "compleet") verzekeringPrijs = 100;
+
+          const queryParams = winkelmand
+            .map(
+              (item, index) =>
+                `item${index}=${encodeURIComponent(
+                  item.name
+                )}&price${index}=${encodeURIComponent(
+                  item.price
+                )}&image${index}=${encodeURIComponent(
+                  item.image
+                )}&quantity${index}=${encodeURIComponent(item.quantity)}`
+            )
+            .join("&");
+
+          const verzekeringParams = `verzekering=${encodeURIComponent(
+            verzekering
+          )}&verzekeringPrijs=${encodeURIComponent(verzekeringPrijs)}`;
+
+          // Verwijs naar de betalingpagina met winkelmandgegevens en verzekering
+          window.location.href = `betaling.html?${queryParams}&${verzekeringParams}`;
+        });
+    </script>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <!-- Gekozen fiets -->
+    <div class="container">
+      <h2>Winkelmand</h2>
+      <div id="gekozen-fiets">
+        <!-- Gekozen fiets wordt hier geladen -->
+      </div>
+      <div id="winkelmand-container">
+        <!-- Producten worden hier geladen -->
+      </div>
+
+      <!-- Verzekeringsoptie -->
+      <label for="verzekering">Voeg een verzekering toe:</label>
+      <select id="verzekering" name="verzekering">
+        <option value="" selected>Geen verzekering</option>
+        <option value="diefstal">Diefstalverzekering (€50/jaar)</option>
+        <option value="schade">Schadeverzekering (€75/jaar)</option>
+        <option value="compleet">Compleet pakket (€100/jaar)</option>
+      </select>
+    </div>
+
+    <!-- Cargofietsen -->
+    <div class="container">
+      <h2>Cargofietsen</h2>
+      <div class="product-container" id="cargofietsen-container">
+        <!-- Cargofietsen worden hier geladen -->
+      </div>
+    </div>
+
+    <!-- Accessoires -->
+    <div class="container">
+      <h2>Accessoires</h2>
+      <div class="product-container" id="accessoires-container">
+        <!-- Accessoires worden hier geladen -->
+      </div>
+    </div>
+
+    <!-- Afrekenen knop -->
+    <div class="container">
+      <button class="afrekenen-knop">Afrekenen</button>
+    </div>
+  </body>
+</html>

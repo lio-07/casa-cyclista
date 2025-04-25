@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>casa cyclista Webshop</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      section {
+        margin: 40px auto;
+        padding: 30px;
+        max-width: 1200px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      section h2 {
+        font-size: 2.5rem;
+        color: #4caf50;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      section p {
+        font-size: 1.4rem;
+        line-height: 1.8;
+        color: #333;
+        text-align: center;
+      }
+
+      .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      .product {
+        background-color: #f5f5dc;
+        border: 1px solid #8b4513;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        width: 300px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .product img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .product h3 {
+        font-size: 1.8rem;
+        color: #8b4513;
+        margin-bottom: 10px;
+      }
+
+      .product p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      .product .bestelknop {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .product .bestelknop:hover {
+        background-color: #388e3c;
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 20px;
+          margin: 20px auto;
+        }
+
+        .product-container {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 15px;
+        }
+
+        .product img {
+          max-width: 80%; /* Beperk de grootte van afbeeldingen */
+        }
+
+        section h2 {
+          font-size: 1.8rem; /* Verklein de koptekstgrootte */
+        }
+
+        section p {
+          font-size: 1rem; /* Verklein de tekstgrootte */
+        }
+      }
+
+      @media (max-width: 480px) {
+        section h2 {
+          font-size: 1.5rem; /* Nog kleinere koptekst op zeer kleine schermen */
+        }
+
+        section p {
+          font-size: 0.9rem; /* Nog kleinere tekst */
+        }
+
+        .product img {
+          max-width: 70%; /* Nog kleinere afbeeldingen */
+        }
+      }
+    </style>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <section id="home">
+      <h2>Welkom bij casa cyclista</h2>
+      <p>De weg naar huis begint bij casa cyclista.</p>
+      <p>
+        Ontdek onze duurzame cargofietsen en geniet van betrouwbare service die
+        mobiliteit en milieubewustzijn combineert.
+      </p>
+    </section>
+
+    <section id="producten">
+      <h2>Onze Cargofietsen</h2>
+      <div class="product-container" id="product-container">
+        <!-- Producten worden hier dynamisch geladen -->
+      </div>
+    </section>
+
+    <section id="accessoires">
+      <h2>Onze Accessoires</h2>
+      <div class="product-container" id="accessoires-container">
+        <!-- Accessoires will be loaded here -->
+      </div>
+    </section>
+
+    <section id="onderhoud">
+      <h2>Fiets­onderhoud</h2>
+      <p>
+        Houd je cargofiets in topconditie met onze deskundige service. Wij
+        zorgen voor preventief onderhoud en vakkundige reparaties, zodat je
+        veilig en zorgeloos kunt fietsen.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        Heb je vragen of wil je een afspraak maken? Neem contact met ons op!
+      </p>
+      <p>📍 Locatie: Abdijstraat 128, 2020 Antwerpen</p>
+      <p>📞 Telefoon: +32 335 38 45 19</p>
+      <p>✉️ E-mail: info@casa.cyclista.net</p>
+      <p>We helpen je graag verder! 🚲</p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 casa cyclista - Alle rechten voorbehouden</p>
+    </footer>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+      import {
+        getFirestore,
+        collection,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
+        authDomain: "casa-cyclista.firebaseapp.com",
+        databaseURL:
+          "https://casa-cyclista-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "casa-cyclista",
+        storageBucket: "casa-cyclista.firebasestorage.app",
+        messagingSenderId: "761939951597",
+        appId: "1:761939951597:web:92e9738369ce85d615f1e4",
+        measurementId: "G-0CGXFBFYGG",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+
+      // Reference to the products collection
+      const productsRef = collection(db, "products");
+
+      // Function to render products with lazy loading
+      function renderProducts(doc) {
+        const productContainer = document.getElementById("product-container");
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("product");
+
+        const img = document.createElement("img");
+        img.src = doc.data().image;
+        img.alt = doc.data().name;
+        img.loading = "lazy"; // Voeg lazy loading toe
+
+        const h3 = document.createElement("h3");
+        h3.textContent = doc.data().name;
+
+        const p = document.createElement("p");
+        p.textContent = `€${doc.data().price}`;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("bestelknop");
+        button.textContent = "Doorgaan naar Bestelling";
+        button.onclick = () => {
+          const url = `bestellen.html?image=${encodeURIComponent(
+            doc.data().image
+          )}&name=${encodeURIComponent(
+            doc.data().name
+          )}&price=${encodeURIComponent(doc.data().price)}`;
+          window.location.href = url;
+        };
+
+        productDiv.appendChild(img);
+        productDiv.appendChild(h3);
+        productDiv.appendChild(p);
+        productDiv.appendChild(button);
+
+        productContainer.appendChild(productDiv);
+      }
+
+      // Real-time listener for products collection
+      onSnapshot(productsRef, (snapshot) => {
+        const productContainer = document.getElementById("product-container");
+        productContainer.innerHTML = ""; // Clear existing products
+        snapshot.forEach((doc) => {
+          renderProducts(doc);
+        });
+      });
+
+      // Reference to the accessoires collection
+      const accessoiresRef = collection(db, "accessoires");
+
+      // Function to render accessoires
+      function renderAccessoires(doc) {
+        const accessoiresContainer = document.getElementById(
+          "accessoires-container"
+        );
+        const accessoiresDiv = document.createElement("div");
+        accessoiresDiv.classList.add("product");
+
+        const img = document.createElement("img");
+        img.src = doc.data().image;
+        img.alt = doc.data().name;
+
+        const h3 = document.createElement("h3");
+        h3.textContent = doc.data().name;
+
+        const p = document.createElement("p");
+        p.textContent = `€${doc.data().price}`;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("bestelknop");
+        button.textContent = "Toevoegen aan Winkelmand";
+        button.onclick = () => {
+          const url = `bestellen.html?type=accessoire&image=${encodeURIComponent(
+            doc.data().image
+          )}&name=${encodeURIComponent(
+            doc.data().name
+          )}&price=${encodeURIComponent(doc.data().price)}`;
+          window.location.href = url;
+        };
+
+        accessoiresDiv.appendChild(img);
+        accessoiresDiv.appendChild(h3);
+        accessoiresDiv.appendChild(p);
+        accessoiresDiv.appendChild(button);
+
+        accessoiresContainer.appendChild(accessoiresDiv);
+      }
+
+      // Real-time listener for accessoires collection
+      onSnapshot(accessoiresRef, (snapshot) => {
+        const accessoiresContainer = document.getElementById(
+          "accessoires-container"
+        );
+        accessoiresContainer.innerHTML = ""; // Clear existing accessoires
+        snapshot.forEach((doc) => {
+          renderAccessoires(doc);
+        });
+      });
+    </script>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>

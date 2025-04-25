@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Over Ons - Casa Cyclista</title>
+    <link rel="stylesheet" href="./casacyclista.css" />
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f5f5dc;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      section {
+        margin-bottom: 40px;
+      }
+      section h2 {
+        font-size: 2.5rem;
+        color: #4caf50;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      section p {
+        font-size: 1.4rem;
+        line-height: 1.8;
+        color: #333;
+        text-align: justify;
+      }
+      li {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        line-height: 1.6;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #8b4513;
+        color: white;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        main {
+          padding: 20px;
+          margin: 20px auto;
+        }
+
+        section h2 {
+          font-size: 1.8rem; /* Verklein de koptekstgrootte */
+        }
+
+        section p {
+          font-size: 1rem; /* Verklein de tekstgrootte */
+        }
+
+        li {
+          font-size: 1rem; /* Verklein de lijsttekst */
+        }
+      }
+
+      @media (max-width: 480px) {
+        section h2 {
+          font-size: 1.5rem; /* Nog kleinere koptekst op zeer kleine schermen */
+        }
+
+        section p,
+        li {
+          font-size: 0.9rem; /* Nog kleinere tekst */
+        }
+      }
+    </style>
+    <script>
+      fetch("./header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <main>
+      <section id="about-us">
+        <h2>Wie zijn wij?</h2>
+        <p>
+          Bij Casa Cyclista draait alles om duurzame mobiliteit en innovatie.
+          Wij geloven dat elektrische cargofietsen niet alleen een efficiënt en
+          milieuvriendelijk vervoersmiddel zijn, maar ook een krachtig middel om
+          onze steden leefbaarder en groener te maken.
+        </p>
+        <p>
+          Onze fietsen worden vervaardigd uit gerecycleerde en
+          milieuvriendelijke materialen, zonder in te boeten op kwaliteit of
+          stevigheid. We gebruiken hergebruikt aluminium voor de frames,
+          waardoor we de CO₂-uitstoot van de productie drastisch verminderen. De
+          lak die we aanbrengen is biologisch afbreekbaar en vrij van
+          schadelijke chemicaliën, en onze accu’s zijn ontworpen met
+          recycleerbare componenten om verspilling tegen te gaan. Daarnaast
+          werken we samen met leveranciers die onze waarden delen en zich
+          inzetten voor eerlijke handel en milieubewuste productie.
+        </p>
+        <p>
+          Duurzaamheid zit bij Casa Cyclista niet alleen in onze producten, maar
+          ook in onze manier van werken. Onze werkplaatsen en kantoren draaien
+          op groene energie, en we zoeken voortdurend naar nieuwe manieren om
+          onze ecologische voetafdruk te verkleinen. We zetten in op een
+          circulaire economie en moedigen onze klanten aan om oude fietsen en
+          onderdelen bij ons in te leveren, zodat we ze kunnen hergebruiken of
+          recyclen.
+        </p>
+        <p>
+          Voor ons betekent duurzaamheid niet alleen zorgen voor het milieu,
+          maar ook bijdragen aan een samenleving waarin eerlijke
+          arbeidsomstandigheden en inclusiviteit centraal staan. Daarom
+          investeren we in onze medewerkers en creëren we een werkomgeving
+          waarin iedereen zich kan ontwikkelen en bijdragen aan een gezamenlijke
+          missie: mobiliteit verduurzamen zonder concessies.
+        </p>
+      </section>
+
+      <section id="our-mission">
+        <h2>Onze Missie</h2>
+        <p>
+          Onze missie is simpel: duurzaam transport zonder concessies aan
+          kwaliteit. We zetten ons in om bedrijven, gezinnen en gemeenschappen
+          te ondersteunen met innovatieve, milieuvriendelijke
+          transportoplossingen die de druk op het verkeer verminderen en de
+          luchtkwaliteit verbeteren. Casa Cyclista maakt stadslogistiek slimmer,
+          efficiënter en groener.
+        </p>
+      </section>
+
+      <section id="our-values">
+        <h2>Onze Visie</h2>
+        <p>
+          Bij Casa Cyclista geloven we in een toekomst waar klanttevredenheid en
+          een inspirerende werkomgeving centraal staan. We streven ernaar om de
+          nummer één keuze te zijn voor bedrijven en consumenten die op zoek
+          zijn naar betrouwbare en duurzame transportoplossingen. Onze visie is
+          om niet alleen de verwachtingen van onze klanten te overtreffen, maar
+          ook een werkomgeving te creëren waar onze medewerkers zich gewaardeerd
+          en gemotiveerd voelen.
+        </p>
+      </section>
+
+      <section id="team">
+        <h2>Ons Team</h2>
+        <p>
+          Achter Casa Cyclista staat een gedreven en gepassioneerd team dat
+          samenwerkt aan een groenere toekomst. Onze experts combineren
+          technische innovatie, strategisch inzicht en een gedeelde liefde voor
+          duurzame mobiliteit om van Casa Cyclista een toonaangevend merk te
+          maken.
+        </p>
+        <ul>
+          <li>
+            <strong>Inaya:</strong> CEO - De drijvende kracht achter onze visie.
+          </li>
+          <li>
+            <strong>Meryem:</strong> HR Director - Zorgt voor een inclusieve
+            werkcultuur.
+          </li>
+          <li>
+            <strong>Mohammed:</strong> Chief Commercial Officer - Bouwt sterke
+            klantrelaties.
+          </li>
+          <li>
+            <strong>Thiago & Danial:</strong> CFO's - Bewaken de financiële
+            strategie.
+          </li>
+        </ul>
+        <p>
+          Samen vormen we Casa Cyclista – een bedrijf dat niet alleen
+          elektrische cargofietsen maakt, maar ook werkt aan een betere toekomst
+          voor mens en milieu. Wil jij deel uitmaken van deze beweging? Ontdek
+          onze producten en word onderdeel van de duurzame revolutie!
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Casa Cyclista - Alle rechten voorbehouden</p>
+    </footer>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>

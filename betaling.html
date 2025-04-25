@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Betaling</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f5f5dc;
+        margin: 0;
+        padding: 0;
+      }
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+      }
+      .container {
+        flex: 1;
+        max-width: 600px;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .overview {
+        flex: 1;
+        max-width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      h2 {
+        font-size: 2.5rem;
+        color: #4caf50;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      label {
+        font-size: 1.2rem;
+        text-align: left;
+      }
+      input,
+      select {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+      }
+      .bestelling-knop {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+      .bestelling-knop:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .bestelling-knop:hover:enabled {
+        background-color: #388e3c;
+      }
+      .overview h3 {
+        font-size: 1.6rem;
+        color: #8b4513;
+        margin-bottom: 10px;
+      }
+      .overview p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      .total-price {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #4caf50;
+        margin-top: 20px;
+      }
+      .product {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+      }
+      .product img {
+        max-width: 70px;
+        margin-right: 15px;
+        border-radius: 5px;
+      }
+      .product-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .product-details h3 {
+        font-size: 1.4rem;
+        margin: 0;
+        color: #8b4513;
+      }
+      .product-details p {
+        font-size: 1.2rem;
+        margin: 5px 0 0;
+        color: #666;
+      }
+      #verzekering-overzicht {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+
+    <div class="main-container">
+      <!-- Formulier -->
+      <div class="container">
+        <h2>Betaling</h2>
+        <form id="betaling-form" novalidate>
+          <label for="naam">Naam:</label>
+          <input
+            type="text"
+            id="naam"
+            name="naam"
+            placeholder="Voer je naam in"
+            required
+          />
+
+          <label for="email">E-mailadres:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Voer je e-mailadres in"
+            required
+          />
+
+          <label for="telefoon">Telefoonnummer:</label>
+          <input
+            type="tel"
+            id="telefoon"
+            name="telefoon"
+            placeholder="Voer je telefoonnummer in"
+            required
+          />
+
+          <label for="betaalmethode">Betaalmethode:</label>
+          <select id="betaalmethode" name="betaalmethode" required>
+            <option value="" disabled selected>Kies een betaalmethode</option>
+            <option value="creditcard">Creditcard</option>
+            <option value="paypal">PayPal</option>
+            <option value="ideal">iDEAL</option>
+          </select>
+
+          <button type="submit" class="bestelling-knop" disabled>
+            Bestelling plaatsen
+          </button>
+        </form>
+      </div>
+
+      <!-- Overzicht -->
+      <div class="overview">
+        <h2>Overzicht</h2>
+        <div id="winkelmand-overzicht"></div>
+        <p>
+          <strong>Verzekering:</strong>
+          <span id="verzekering-overzicht">Geen</span>
+        </p>
+        <p>
+          <strong>Verzekeringsprijs:</strong>
+          €<span id="verzekering-prijs">0</span>
+        </p>
+        <p class="total-price">
+          Totale Prijs: €<span id="totale-prijs">0</span>
+        </p>
+        <button id="aanpassen-knop" class="bestelling-knop">
+          Bestelling aanpassen
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const winkelmandOverzicht = document.getElementById(
+        "winkelmand-overzicht"
+      );
+      const verzekeringOverzicht = document.getElementById(
+        "verzekering-overzicht"
+      );
+      let totalePrijs = 0;
+
+      const producten = [];
+
+      params.forEach((value, key) => {
+        if (key.startsWith("item")) {
+          const index = key.replace("item", "");
+          const prijs = parseFloat(params.get(`price${index}`)) || 0;
+          const image = params.get(`image${index}`);
+          const quantity = parseInt(params.get(`quantity${index}`)) || 1;
+          totalePrijs += prijs * quantity;
+
+          const itemDiv = document.createElement("div");
+          itemDiv.classList.add("product");
+
+          const img = document.createElement("img");
+          img.src = image;
+          img.alt = value;
+
+          const detailsDiv = document.createElement("div");
+          detailsDiv.classList.add("product-details");
+
+          const h3 = document.createElement("h3");
+          h3.textContent = value;
+
+          const p = document.createElement("p");
+          p.textContent = `€${prijs.toFixed(2)} x ${quantity} = €${(
+            prijs * quantity
+          ).toFixed(2)}`;
+
+          detailsDiv.appendChild(h3);
+          detailsDiv.appendChild(p);
+
+          itemDiv.appendChild(img);
+          itemDiv.appendChild(detailsDiv);
+
+          winkelmandOverzicht.appendChild(itemDiv);
+
+          producten.push({ name: value, price: prijs, image, quantity });
+        }
+      });
+
+      // Verzekering ophalen en weergeven
+      const verzekering = params.get("verzekering") || "Geen";
+      const verzekeringPrijs = parseFloat(params.get("verzekeringPrijs")) || 0;
+      verzekeringOverzicht.textContent = verzekering;
+      document.getElementById("verzekering-prijs").textContent =
+        verzekeringPrijs.toFixed(2);
+
+      // Voeg de verzekeringsprijs toe aan de totale prijs
+      totalePrijs += verzekeringPrijs;
+
+      document.getElementById("totale-prijs").textContent =
+        totalePrijs.toFixed(2);
+
+      const form = document.getElementById("betaling-form");
+      const bestellingKnop = document.querySelector(".bestelling-knop");
+
+      form.addEventListener("input", () => {
+        const isValid = form.checkValidity();
+        bestellingKnop.disabled = !isValid;
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Controleer of het formulier geldig is
+        if (!form.checkValidity()) {
+          alert("Vul alle verplichte velden correct in.");
+          return;
+        }
+
+        const naam = document.getElementById("naam").value;
+        const email = document.getElementById("email").value;
+        const telefoon = document.getElementById("telefoon").value;
+        const betaalmethode = document.getElementById("betaalmethode").value;
+
+        // Sla de gegevens op in localStorage
+        localStorage.setItem(
+          "bestelling",
+          JSON.stringify({
+            naam,
+            email,
+            telefoon,
+            betaalmethode,
+            verzekering,
+            verzekeringPrijs,
+            totalePrijs: totalePrijs.toFixed(2),
+            producten,
+          })
+        );
+
+        // Verwijs naar de afgerekend-pagina
+        window.location.href = "afgerekend.html";
+      });
+
+      // Functionaliteit voor de knop "Bestelling aanpassen"
+      const aanpassenKnop = document.getElementById("aanpassen-knop");
+      aanpassenKnop.addEventListener("click", () => {
+        const queryParams = producten
+          .map(
+            (product, index) =>
+              `item${index}=${encodeURIComponent(
+                product.name
+              )}&price${index}=${encodeURIComponent(
+                product.price
+              )}&image${index}=${encodeURIComponent(
+                product.image
+              )}&quantity${index}=${encodeURIComponent(product.quantity)}`
+          )
+          .join("&");
+
+        const verzekeringParam = `verzekering=${encodeURIComponent(
+          verzekering
+        )}&verzekeringPrijs=${encodeURIComponent(verzekeringPrijs)}`;
+
+        // Verwijs terug naar de winkelmandpagina
+        window.location.href = `bestellen.html?${queryParams}&${verzekeringParam}`;
+      });
+    </script>
+  </body>
+</html>

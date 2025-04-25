@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Betaling voltooid</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f5f5dc;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        color: #4caf50;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .details {
+        text-align: left;
+        margin-bottom: 30px;
+      }
+
+      .details p {
+        font-size: 1.2rem;
+        margin: 10px 0;
+        color: #555;
+      }
+
+      .details strong {
+        color: #4caf50;
+      }
+
+      .producten-lijst {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .product img {
+        max-width: 100px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+      }
+
+      .product-details {
+        text-align: center;
+      }
+
+      .product-details h3 {
+        font-size: 1.4rem;
+        margin: 0;
+        color: #8b4513;
+      }
+
+      .product-details p {
+        font-size: 1.2rem;
+        margin: 5px 0 0;
+        color: #666;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #8b4513;
+        color: white;
+        margin-top: 40px;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+          margin: 20px auto;
+        }
+
+        .details p {
+          font-size: 1rem;
+        }
+
+        .producten-lijst {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 15px;
+        }
+
+        .product img {
+          max-width: 80%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 2rem;
+        }
+
+        .details p {
+          font-size: 0.9rem;
+        }
+
+        .product img {
+          max-width: 70%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+
+    <!-- Inhoud van de pagina -->
+    <div class="container">
+      <h2>Betaling voltooid</h2>
+      <p>
+        Bedankt voor je bestelling! Hieronder vind je de details van je
+        bestelling.
+      </p>
+
+      <div class="details">
+        <p><strong>Naam:</strong> <span id="naam"></span></p>
+        <p><strong>E-mail:</strong> <span id="email"></span></p>
+        <p><strong>Telefoonnummer:</strong> <span id="telefoon"></span></p>
+        <p><strong>Betaalmethode:</strong> <span id="betaalmethode"></span></p>
+        <p><strong>Verzekering:</strong> <span id="verzekering"></span></p>
+        <p>
+          <strong>Verzekeringsprijs:</strong>
+          <span id="verzekering-prijs"></span>
+        </p>
+        <p><strong>Totale Prijs:</strong> €<span id="totale-prijs"></span></p>
+        <h3>Bestelde Producten:</h3>
+      </div>
+
+      <div id="producten-lijst" class="producten-lijst">
+        <!-- Producten worden hier dynamisch geladen -->
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Casa Cyclista - Alle rechten voorbehouden</p>
+    </footer>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+      // Firebase configuratie
+      const firebaseConfig = {
+        apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
+        authDomain: "casa-cyclista.firebaseapp.com",
+        projectId: "casa-cyclista",
+        storageBucket: "casa-cyclista.appspot.com",
+        messagingSenderId: "761939951597",
+        appId: "1:761939951597:web:92e9738369ce85d615f1e4",
+        measurementId: "G-0CGXFBFYGG",
+      };
+
+      // Firebase initialiseren
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Haal de gegevens op uit localStorage
+      const bestelling = JSON.parse(localStorage.getItem("bestelling"));
+
+      if (bestelling) {
+        const {
+          naam,
+          email,
+          telefoon,
+          betaalmethode,
+          verzekering,
+          verzekeringPrijs,
+          totalePrijs,
+          producten,
+        } = bestelling;
+
+        // Vul de gegevens in de HTML
+        document.getElementById("naam").textContent = naam || "Onbekend";
+        document.getElementById("email").textContent = email || "Onbekend";
+        document.getElementById("telefoon").textContent =
+          telefoon || "Onbekend";
+        document.getElementById("betaalmethode").textContent =
+          betaalmethode || "Onbekend";
+        document.getElementById("verzekering").textContent =
+          verzekering || "Geen";
+        document.getElementById("verzekering-prijs").textContent =
+          verzekeringPrijs
+            ? `€${parseFloat(verzekeringPrijs).toFixed(2)} per jaar`
+            : "Geen";
+
+        const totalePrijsNum = parseFloat(totalePrijs) || 0;
+        document.getElementById("totale-prijs").textContent =
+          totalePrijsNum.toFixed(2);
+
+        const productenContainer = document.getElementById("producten-lijst");
+        producten.forEach((product) => {
+          const productDiv = document.createElement("div");
+          productDiv.classList.add("product");
+
+          const img = document.createElement("img");
+          img.src = product.image;
+          img.alt = product.name;
+
+          const detailsDiv = document.createElement("div");
+          detailsDiv.classList.add("product-details");
+
+          const h3 = document.createElement("h3");
+          h3.textContent = product.name;
+
+          const p = document.createElement("p");
+          p.textContent = `€${parseFloat(product.price).toFixed(2)} x ${
+            product.quantity
+          } = €${(product.price * product.quantity).toFixed(2)}`;
+
+          detailsDiv.appendChild(h3);
+          detailsDiv.appendChild(p);
+
+          productDiv.appendChild(img);
+          productDiv.appendChild(detailsDiv);
+
+          productenContainer.appendChild(productDiv);
+        });
+
+        // Sla de bestelling op in Firestore
+        async function saveOrderToFirestore() {
+          try {
+            const docRef = await addDoc(collection(db, "bestellingen"), {
+              naam,
+              email,
+              telefoon,
+              betaalmethode,
+              verzekering,
+              verzekeringPrijs: parseFloat(verzekeringPrijs) || 0,
+              totalePrijs: totalePrijsNum,
+              producten,
+              timestamp: new Date().toISOString(),
+            });
+            console.log("Bestelling opgeslagen met ID:", docRef.id);
+          } catch (error) {
+            console.error("Fout bij het opslaan van de bestelling:", error);
+          }
+        }
+
+        saveOrderToFirestore();
+      } else {
+        console.error("Geen bestelling gevonden in localStorage.");
+      }
+    </script>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>
+```

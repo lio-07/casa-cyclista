@@ -1,0 +1,69 @@
+<header>
+  <a href="index.html">
+    <img
+      id="logo"
+      src="https://i.postimg.cc/2yv09DRW/casa-cyclista-1.png"
+      alt="Casa Cyclista Logo"
+      class="logo"
+    />
+  </a>
+  <h1>casa cyclista</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#producten">Cargofietsen</a></li>
+      <li><a href="index.html#accessoires">Accessoires</a></li>
+      <li><a href="index.html#onderhoud">Onderhoud</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="Over_ons.html">Over ons</a></li>
+    </ul>
+  </nav>
+</header>
+<style>
+  header img.logo {
+    max-width: 200px; /* Verhoog de maximale breedte van het logo */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+</style>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+  // Firebase configuratie
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
+    authDomain: "casa-cyclista.firebaseapp.com",
+    projectId: "casa-cyclista",
+    storageBucket: "casa-cyclista.appspot.com",
+    messagingSenderId: "761939951597",
+    appId: "1:761939951597:web:92e9738369ce85d615f1e4",
+    measurementId: "G-0CGXFBFYGG",
+  };
+
+  // Firebase initialiseren
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Haal de URL van het logo op uit de Firestore-collectie 'logo'
+  async function loadLogo() {
+    const logoCollection = collection(db, "logo");
+    const logoSnapshot = await getDocs(logoCollection);
+
+    logoSnapshot.forEach((doc) => {
+      const logoData = doc.data();
+      const logoElement = document.getElementById("logo");
+      logoElement.src = logoData.url; // Zorg ervoor dat het veld 'url' in Firestore bestaat
+      logoElement.alt = logoData.alt || "Casa Cyclista Logo";
+    });
+  }
+
+  loadLogo().catch((error) => {
+    console.error("Fout bij het ophalen van het logo:", error);
+  });
+</script>
