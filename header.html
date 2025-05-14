@@ -78,7 +78,7 @@
     }
 
     #menu-toggle {
-      display: block;
+      display: block; /* Toon de hamburgerknop op gsm */
     }
 
     nav#nav-menu {
@@ -114,28 +114,50 @@
   }
 
   .floating-cart-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    position: fixed; /* Zorg ervoor dat de knop altijd zichtbaar is */
+    bottom: 20px; /* Plaats de knop 20px vanaf de onderkant van het scherm */
+    right: 20px; /* Plaats de knop 20px vanaf de rechterkant van het scherm */
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 100px; /* Verhoog de breedte */
-    height: 100px; /* Verhoog de hoogte */
+    width: 100px; /* Breedte van de knop */
+    height: 100px; /* Hoogte van de knop */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem; /* Verhoog de lettergrootte */
+    font-size: 2.5rem; /* Lettergrootte van het winkelmand-icoon */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1000; /* Zorg ervoor dat de knop boven andere elementen staat */
     transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .floating-cart-button:hover {
     background-color: #388e3c;
-    transform: scale(1.1);
+    transform: scale(1.1); /* Vergroot de knop iets bij hover */
+  }
+
+  @media (max-width: 480px) {
+    .floating-cart-button {
+      width: 70px; /* Maak de knop kleiner */
+      height: 70px; /* Maak de knop kleiner */
+      font-size: 1.8rem; /* Verklein de lettergrootte */
+      bottom: 15px; /* Pas de positie aan */
+      right: 15px; /* Pas de positie aan */
+    }
+
+    header h1 {
+      font-size: 1.5rem; /* Verklein de headertekst */
+    }
+
+    header img.logo {
+      max-width: 120px; /* Verklein het logo */
+    }
+
+    nav#nav-menu ul li a {
+      font-size: 1rem; /* Verklein de tekstgrootte van de navigatie */
+    }
   }
 </style>
 <script type="module">
@@ -182,7 +204,14 @@
   const navMenu = document.getElementById("nav-menu");
 
   menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
+    navMenu.classList.toggle("active"); // Toggle de 'active'-klasse
+  });
+
+  // Sluit het menu wanneer een link wordt aangeklikt
+  navMenu.addEventListener("click", (event) => {
+    if (event.target.tagName === "A") {
+      navMenu.classList.remove("active");
+    }
   });
 </script>
 
