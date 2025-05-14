@@ -53,9 +53,14 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
       .product img {
-        max-width: 100px;
+        max-width: 150px; /* Verhoog de maximale breedte */
+        max-height: 150px; /* Voeg een maximale hoogte toe */
         border-radius: 8px;
         margin-bottom: 10px;
+        transition: transform 0.3s ease; /* Voeg een subtiele zoom toe */
+      }
+      .product img:hover {
+        transform: scale(1.05); /* Zoom in bij hover */
       }
       .product h3 {
         font-size: 1.6rem;
@@ -458,3 +463,4 @@
     </div>
   </body>
 </html>
+```

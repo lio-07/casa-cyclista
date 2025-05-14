@@ -128,6 +128,22 @@
         margin-top: 10px;
         display: block;
       }
+
+      @media (max-width: 768px) {
+        .main-container {
+          flex-direction: column; /* Stapel de containers onder elkaar */
+          align-items: center; /* Centreer de inhoud */
+        }
+
+        .container,
+        .overview {
+          max-width: 100%; /* Laat de containers de volledige breedte innemen */
+        }
+
+        .overview {
+          margin-top: 20px; /* Voeg wat ruimte toe tussen de twee secties */
+        }
+      }
     </style>
   </head>
   <body>
@@ -338,3 +354,4 @@
     </script>
   </body>
 </html>
+```

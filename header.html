@@ -8,7 +8,11 @@
     />
   </a>
   <h1>casa cyclista</h1>
-  <nav>
+  <button id="menu-toggle" aria-label="Toggle navigation">
+    &#9776;
+    <!-- Unicode voor drie strepen -->
+  </button>
+  <nav id="nav-menu">
     <ul>
       <li><a href="index.html#home">Home</a></li>
       <li><a href="index.html#producten">Cargofietsen</a></li>
@@ -20,11 +24,118 @@
   </nav>
 </header>
 <style>
+  header {
+    position: relative;
+  }
+
   header img.logo {
     max-width: 200px; /* Verhoog de maximale breedte van het logo */
     height: auto;
     display: block;
     margin: 0 auto;
+  }
+
+  #menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  nav#nav-menu {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 10px;
+    }
+
+    header h1 {
+      font-size: 1.8rem; /* Verklein de headertekst */
+      margin-bottom: 10px;
+    }
+
+    header nav ul {
+      flex-direction: column; /* Stapel de navigatie-items onder elkaar */
+      gap: 10px;
+    }
+
+    header nav ul li a {
+      font-size: 1rem; /* Verklein de tekstgrootte */
+      padding: 8px 12px; /* Maak de knoppen compacter */
+    }
+
+    header img.logo {
+      max-width: 150px; /* Verklein het logo */
+    }
+
+    #menu-toggle {
+      display: block;
+    }
+
+    nav#nav-menu {
+      display: none; /* Verberg de navigatie standaard */
+      flex-direction: column;
+      background-color: #8b4513;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    nav#nav-menu ul {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0;
+    }
+
+    nav#nav-menu ul li {
+      text-align: center;
+    }
+
+    nav#nav-menu ul li a {
+      font-size: 1.2rem;
+      padding: 10px;
+      display: block;
+    }
+
+    nav#nav-menu.active {
+      display: flex; /* Toon de navigatie wanneer actief */
+    }
+  }
+
+  .floating-cart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 100px; /* Verhoog de breedte */
+    height: 100px; /* Verhoog de hoogte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem; /* Verhoog de lettergrootte */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .floating-cart-button:hover {
+    background-color: #388e3c;
+    transform: scale(1.1);
   }
 </style>
 <script type="module">
@@ -66,4 +177,20 @@
   loadLogo().catch((error) => {
     console.error("Fout bij het ophalen van het logo:", error);
   });
+
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
 </script>
+
+<!-- Voeg de knop toe -->
+<button
+  class="floating-cart-button"
+  onclick="window.location.href='bestellen.html'"
+  aria-label="Ga naar winkelmand"
+>
+  🛒
+</button>
