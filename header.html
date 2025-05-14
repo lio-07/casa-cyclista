@@ -215,6 +215,22 @@
   });
 </script>
 
+<script>
+  // Voeg een eventlistener toe aan de winkelmandknop
+  const floatingCartButton = document.querySelector(".floating-cart-button");
+
+  floatingCartButton.addEventListener("click", () => {
+    // Controleer of er al een winkelmand in localStorage staat
+    const winkelmand = JSON.parse(localStorage.getItem("winkelmand")) || [];
+
+    // Sla de huidige winkelmand op in localStorage
+    localStorage.setItem("winkelmand", JSON.stringify(winkelmand));
+
+    // Verwijs naar de winkelmandpagina
+    window.location.href = "bestellen.html";
+  });
+</script>
+
 <!-- Voeg de knop toe -->
 <button
   class="floating-cart-button"

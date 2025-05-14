@@ -163,6 +163,18 @@
       // Winkelmand array
       const winkelmand = [];
 
+      // Laad de winkelmandgegevens uit localStorage
+      function loadWinkelmandFromLocalStorage() {
+        const winkelmandData =
+          JSON.parse(localStorage.getItem("winkelmand")) || [];
+        winkelmandData.forEach((item) => {
+          addToWinkelmand(item.name, item.price, item.image, item.quantity);
+        });
+      }
+
+      // Roep de functie aan om de winkelmand te laden bij het openen van de pagina
+      loadWinkelmandFromLocalStorage();
+
       // Functie om de winkelmand bij te werken
       function updateWinkelmand() {
         const winkelmandContainer = document.getElementById(
@@ -196,6 +208,7 @@
               winkelmand.splice(index, 1); // Verwijder het item uit de array
             }
             updateWinkelmand(); // Werk de winkelmand bij
+            localStorage.setItem("winkelmand", JSON.stringify(winkelmand)); // Sla de bijgewerkte winkelmand op
           };
 
           itemDiv.appendChild(img);
@@ -205,6 +218,9 @@
 
           winkelmandContainer.appendChild(itemDiv);
         });
+
+        // Sla de bijgewerkte winkelmand op in localStorage
+        localStorage.setItem("winkelmand", JSON.stringify(winkelmand));
       }
 
       // Functie om een product toe te voegen aan de winkelmand
@@ -463,4 +479,4 @@
     </div>
   </body>
 </html>
-```
+`
