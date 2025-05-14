@@ -59,22 +59,22 @@
     }
 
     header h1 {
-      font-size: 1.8rem; /* Verklein de headertekst */
-      margin-bottom: 10px;
+      font-size: 1.5rem; /* Verklein de headertekst */
     }
 
     header nav ul {
-      flex-direction: column; /* Stapel de navigatie-items onder elkaar */
-      gap: 10px;
+      flex-direction: row; /* Houd de navigatie-items naast elkaar */
+      gap: 5px; /* Verminder de ruimte tussen de items */
+      overflow-x: auto; /* Zorg ervoor dat de navigatie horizontaal scrollbaar is als er niet genoeg ruimte is */
     }
 
     header nav ul li a {
-      font-size: 1rem; /* Verklein de tekstgrootte */
-      padding: 8px 12px; /* Maak de knoppen compacter */
+      font-size: 0.9rem; /* Verklein de tekstgrootte */
+      padding: 5px 8px; /* Maak de knoppen compacter */
     }
 
     header img.logo {
-      max-width: 150px; /* Verklein het logo */
+      max-width: 120px; /* Verklein het logo */
     }
 
     #menu-toggle {
@@ -113,6 +113,33 @@
     }
   }
 
+  @media (max-width: 480px) {
+    .floating-cart-button {
+      width: 70px; /* Maak de knop kleiner */
+      height: 70px; /* Maak de knop kleiner */
+      font-size: 1.8rem; /* Verklein de lettergrootte */
+      bottom: 15px; /* Pas de positie aan */
+      right: 15px; /* Pas de positie aan */
+    }
+
+    header h1 {
+      font-size: 1.2rem; /* Nog kleinere headertekst */
+    }
+
+    header nav ul li a {
+      font-size: 0.8rem; /* Nog kleinere tekstgrootte */
+      padding: 4px 6px; /* Nog compactere knoppen */
+    }
+
+    header img.logo {
+      max-width: 100px; /* Nog kleiner logo */
+    }
+
+    nav#nav-menu ul li a {
+      font-size: 1rem; /* Verklein de tekstgrootte van de navigatie */
+    }
+  }
+
   .floating-cart-button {
     position: fixed; /* Zorg ervoor dat de knop altijd zichtbaar is */
     bottom: 20px; /* Plaats de knop 20px vanaf de onderkant van het scherm */
@@ -136,28 +163,6 @@
   .floating-cart-button:hover {
     background-color: #388e3c;
     transform: scale(1.1); /* Vergroot de knop iets bij hover */
-  }
-
-  @media (max-width: 480px) {
-    .floating-cart-button {
-      width: 70px; /* Maak de knop kleiner */
-      height: 70px; /* Maak de knop kleiner */
-      font-size: 1.8rem; /* Verklein de lettergrootte */
-      bottom: 15px; /* Pas de positie aan */
-      right: 15px; /* Pas de positie aan */
-    }
-
-    header h1 {
-      font-size: 1.5rem; /* Verklein de headertekst */
-    }
-
-    header img.logo {
-      max-width: 120px; /* Verklein het logo */
-    }
-
-    nav#nav-menu ul li a {
-      font-size: 1rem; /* Verklein de tekstgrootte van de navigatie */
-    }
   }
 </style>
 <script type="module">
