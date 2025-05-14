@@ -8,10 +8,6 @@
     />
   </a>
   <h1>casa cyclista</h1>
-  <button id="menu-toggle" aria-label="Toggle navigation">
-    &#9776;
-    <!-- Unicode voor drie strepen -->
-  </button>
   <nav id="nav-menu">
     <ul>
       <li><a href="index.html#home">Home</a></li>
@@ -29,140 +25,98 @@
   }
 
   header img.logo {
-    max-width: 200px; /* Verhoog de maximale breedte van het logo */
+    max-width: 200px;
     height: auto;
     display: block;
     margin: 0 auto;
   }
 
-  #menu-toggle {
-    display: none;
-    background: none;
-    border: none;
+  header h1 {
     font-size: 2rem;
-    color: white;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    z-index: 1001;
+    text-align: center;
+    margin: 10px 0;
   }
 
-  nav#nav-menu {
+  nav#nav-menu ul {
     display: flex;
     justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    gap: 20px;
+  }
+
+  nav#nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  nav#nav-menu ul li a:hover {
+    background-color: #5a2e0c;
   }
 
   @media (max-width: 768px) {
-    header {
-      padding: 10px;
-    }
-
     header h1 {
-      font-size: 1.5rem; /* Verklein de headertekst */
-    }
-
-    header nav ul {
-      flex-direction: row; /* Houd de navigatie-items naast elkaar */
-      gap: 5px; /* Verminder de ruimte tussen de items */
-      overflow-x: auto; /* Zorg ervoor dat de navigatie horizontaal scrollbaar is als er niet genoeg ruimte is */
-    }
-
-    header nav ul li a {
-      font-size: 0.9rem; /* Verklein de tekstgrootte */
-      padding: 5px 8px; /* Maak de knoppen compacter */
-    }
-
-    header img.logo {
-      max-width: 120px; /* Verklein het logo */
-    }
-
-    #menu-toggle {
-      display: block; /* Toon de hamburgerknop op gsm */
-    }
-
-    nav#nav-menu {
-      display: none; /* Verberg de navigatie standaard */
-      flex-direction: column;
-      background-color: #8b4513;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      width: 100%;
-      z-index: 1000;
+      font-size: 1.5rem;
     }
 
     nav#nav-menu ul {
-      flex-direction: column;
       gap: 10px;
-      padding: 10px 0;
-    }
-
-    nav#nav-menu ul li {
-      text-align: center;
     }
 
     nav#nav-menu ul li a {
-      font-size: 1.2rem;
-      padding: 10px;
-      display: block;
+      font-size: 1rem;
+      padding: 4px 8px;
     }
 
-    nav#nav-menu.active {
-      display: flex; /* Toon de navigatie wanneer actief */
+    header img.logo {
+      max-width: 150px;
     }
   }
 
   @media (max-width: 480px) {
-    .floating-cart-button {
-      width: 70px; /* Maak de knop kleiner */
-      height: 70px; /* Maak de knop kleiner */
-      font-size: 1.8rem; /* Verklein de lettergrootte */
-      bottom: 15px; /* Pas de positie aan */
-      right: 15px; /* Pas de positie aan */
-    }
-
     header h1 {
-      font-size: 1.2rem; /* Nog kleinere headertekst */
-    }
-
-    header nav ul li a {
-      font-size: 0.8rem; /* Nog kleinere tekstgrootte */
-      padding: 4px 6px; /* Nog compactere knoppen */
-    }
-
-    header img.logo {
-      max-width: 100px; /* Nog kleiner logo */
+      font-size: 1.2rem;
     }
 
     nav#nav-menu ul li a {
-      font-size: 1rem; /* Verklein de tekstgrootte van de navigatie */
+      font-size: 0.9rem;
+      padding: 3px 6px;
+    }
+
+    header img.logo {
+      max-width: 120px;
     }
   }
 
   .floating-cart-button {
-    position: fixed; /* Zorg ervoor dat de knop altijd zichtbaar is */
-    bottom: 20px; /* Plaats de knop 20px vanaf de onderkant van het scherm */
-    right: 20px; /* Plaats de knop 20px vanaf de rechterkant van het scherm */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 100px; /* Breedte van de knop */
-    height: 100px; /* Hoogte van de knop */
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem; /* Lettergrootte van het winkelmand-icoon */
+    font-size: 2.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    z-index: 1000; /* Zorg ervoor dat de knop boven andere elementen staat */
+    z-index: 1000;
     transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .floating-cart-button:hover {
     background-color: #388e3c;
-    transform: scale(1.1); /* Vergroot de knop iets bij hover */
+    transform: scale(1.1);
   }
 </style>
 <script type="module">
@@ -173,7 +127,6 @@
     getDocs,
   } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
-  // Firebase configuratie
   const firebaseConfig = {
     apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
     authDomain: "casa-cyclista.firebaseapp.com",
@@ -184,11 +137,9 @@
     measurementId: "G-0CGXFBFYGG",
   };
 
-  // Firebase initialiseren
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Haal de URL van het logo op uit de Firestore-collectie 'logo'
   async function loadLogo() {
     const logoCollection = collection(db, "logo");
     const logoSnapshot = await getDocs(logoCollection);
@@ -196,7 +147,7 @@
     logoSnapshot.forEach((doc) => {
       const logoData = doc.data();
       const logoElement = document.getElementById("logo");
-      logoElement.src = logoData.url; // Zorg ervoor dat het veld 'url' in Firestore bestaat
+      logoElement.src = logoData.url;
       logoElement.alt = logoData.alt || "Casa Cyclista Logo";
     });
   }
@@ -204,39 +155,18 @@
   loadLogo().catch((error) => {
     console.error("Fout bij het ophalen van het logo:", error);
   });
-
-  const menuToggle = document.getElementById("menu-toggle");
-  const navMenu = document.getElementById("nav-menu");
-
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("active"); // Toggle de 'active'-klasse
-  });
-
-  // Sluit het menu wanneer een link wordt aangeklikt
-  navMenu.addEventListener("click", (event) => {
-    if (event.target.tagName === "A") {
-      navMenu.classList.remove("active");
-    }
-  });
 </script>
 
 <script>
-  // Voeg een eventlistener toe aan de winkelmandknop
   const floatingCartButton = document.querySelector(".floating-cart-button");
 
   floatingCartButton.addEventListener("click", () => {
-    // Controleer of er al een winkelmand in localStorage staat
     const winkelmand = JSON.parse(localStorage.getItem("winkelmand")) || [];
-
-    // Sla de huidige winkelmand op in localStorage
     localStorage.setItem("winkelmand", JSON.stringify(winkelmand));
-
-    // Verwijs naar de winkelmandpagina
     window.location.href = "bestellen.html";
   });
 </script>
 
-<!-- Voeg de knop toe -->
 <button
   class="floating-cart-button"
   onclick="window.location.href='bestellen.html'"
