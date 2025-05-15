@@ -8,6 +8,10 @@
     />
   </a>
   <h1>casa cyclista</h1>
+  <button id="menu-toggle" aria-label="Toggle navigation">
+    &#9776;
+    <!-- Unicode voor drie strepen -->
+  </button>
   <nav id="nav-menu">
     <ul>
       <li><a href="index.html#home">Home</a></li>
@@ -25,98 +29,135 @@
   }
 
   header img.logo {
-    max-width: 200px;
+    max-width: 200px; /* Verhoog de maximale breedte van het logo */
     height: auto;
     display: block;
     margin: 0 auto;
   }
 
-  header h1 {
+  #menu-toggle {
+    display: none;
+    background: none;
+    border: none;
     font-size: 2rem;
-    text-align: center;
-    margin: 10px 0;
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1001;
   }
 
-  nav#nav-menu ul {
+  nav#nav-menu {
     display: flex;
     justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-    gap: 20px;
-  }
-
-  nav#nav-menu ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-
-  nav#nav-menu ul li a:hover {
-    background-color: #5a2e0c;
   }
 
   @media (max-width: 768px) {
-    header h1 {
-      font-size: 1.5rem;
+    header {
+      padding: 10px;
     }
 
-    nav#nav-menu ul {
+    header h1 {
+      font-size: 1.8rem; /* Verklein de headertekst */
+      margin-bottom: 10px;
+    }
+
+    header nav ul {
+      flex-direction: column; /* Stapel de navigatie-items onder elkaar */
       gap: 10px;
     }
 
-    nav#nav-menu ul li a {
-      font-size: 1rem;
-      padding: 4px 8px;
+    header nav ul li a {
+      font-size: 1rem; /* Verklein de tekstgrootte */
+      padding: 8px 12px; /* Maak de knoppen compacter */
     }
 
     header img.logo {
-      max-width: 150px;
+      max-width: 150px; /* Verklein het logo */
     }
-  }
 
-  @media (max-width: 480px) {
-    header h1 {
+    #menu-toggle {
+      display: block; /* Toon de hamburgerknop op gsm */
+    }
+
+    nav#nav-menu {
+      display: none; /* Verberg de navigatie standaard */
+      flex-direction: column;
+      background-color: #8b4513;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    nav#nav-menu ul {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0;
+    }
+
+    nav#nav-menu ul li {
+      text-align: center;
+    }
+
+    nav#nav-menu ul li a {
       font-size: 1.2rem;
+      padding: 10px;
+      display: block;
     }
 
-    nav#nav-menu ul li a {
-      font-size: 0.9rem;
-      padding: 3px 6px;
-    }
-
-    header img.logo {
-      max-width: 120px;
+    nav#nav-menu.active {
+      display: flex; /* Toon de navigatie wanneer actief */
     }
   }
 
   .floating-cart-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    position: fixed; /* Zorg ervoor dat de knop altijd zichtbaar is */
+    bottom: 20px; /* Plaats de knop 20px vanaf de onderkant van het scherm */
+    right: 20px; /* Plaats de knop 20px vanaf de rechterkant van het scherm */
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 100px; /* Breedte van de knop */
+    height: 100px; /* Hoogte van de knop */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Lettergrootte van het winkelmand-icoon */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1000; /* Zorg ervoor dat de knop boven andere elementen staat */
     transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .floating-cart-button:hover {
     background-color: #388e3c;
-    transform: scale(1.1);
+    transform: scale(1.1); /* Vergroot de knop iets bij hover */
+  }
+
+  @media (max-width: 480px) {
+    .floating-cart-button {
+      width: 70px; /* Maak de knop kleiner */
+      height: 70px; /* Maak de knop kleiner */
+      font-size: 1.8rem; /* Verklein de lettergrootte */
+      bottom: 15px; /* Pas de positie aan */
+      right: 15px; /* Pas de positie aan */
+    }
+
+    header h1 {
+      font-size: 1.5rem; /* Verklein de headertekst */
+    }
+
+    header img.logo {
+      max-width: 120px; /* Verklein het logo */
+    }
+
+    nav#nav-menu ul li a {
+      font-size: 1rem; /* Verklein de tekstgrootte van de navigatie */
+    }
   }
 </style>
 <script type="module">
@@ -127,6 +168,7 @@
     getDocs,
   } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
+  // Firebase configuratie
   const firebaseConfig = {
     apiKey: "AIzaSyA6QFCP_YovBfVmMz3Qep4lZ3erEt0fzXE",
     authDomain: "casa-cyclista.firebaseapp.com",
@@ -137,9 +179,11 @@
     measurementId: "G-0CGXFBFYGG",
   };
 
+  // Firebase initialiseren
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // Haal de URL van het logo op uit de Firestore-collectie 'logo'
   async function loadLogo() {
     const logoCollection = collection(db, "logo");
     const logoSnapshot = await getDocs(logoCollection);
@@ -147,7 +191,7 @@
     logoSnapshot.forEach((doc) => {
       const logoData = doc.data();
       const logoElement = document.getElementById("logo");
-      logoElement.src = logoData.url;
+      logoElement.src = logoData.url; // Zorg ervoor dat het veld 'url' in Firestore bestaat
       logoElement.alt = logoData.alt || "Casa Cyclista Logo";
     });
   }
@@ -155,18 +199,83 @@
   loadLogo().catch((error) => {
     console.error("Fout bij het ophalen van het logo:", error);
   });
+
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active"); // Toggle de 'active'-klasse
+  });
+
+  // Sluit het menu wanneer een link wordt aangeklikt
+  navMenu.addEventListener("click", (event) => {
+    if (event.target.tagName === "A") {
+      navMenu.classList.remove("active");
+    }
+  });
+
+  // Voorbeeld specs rendering in je product rendering functie (pas toe in bestellen.html of index.html)
+  function renderProductWithSpecs(doc) {
+    const productContainer = document.getElementById("product-container");
+    const productDiv = document.createElement("div");
+    productDiv.classList.add("product");
+
+    const img = document.createElement("img");
+    img.src = doc.data().image;
+    img.alt = doc.data().name;
+
+    const h3 = document.createElement("h3");
+    h3.textContent = doc.data().name;
+
+    const p = document.createElement("p");
+    p.textContent = `€${doc.data().price}`;
+
+    // Specs tonen indien aanwezig
+    const specs = doc.data().specs;
+    let specsDiv = document.createElement("div");
+    specsDiv.classList.add("specs");
+    if (specs) {
+      // Als specs een object is
+      for (const [key, value] of Object.entries(specs)) {
+        const specP = document.createElement("p");
+        specP.textContent = `${key}: ${value}`;
+        specsDiv.appendChild(specP);
+      }
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.classList.add("bestelknop");
+    button.textContent = "Toevoegen aan winkelmand";
+    // ...event handler...
+
+    productDiv.appendChild(img);
+    productDiv.appendChild(h3);
+    productDiv.appendChild(p);
+    productDiv.appendChild(specsDiv); // Voeg specs toe
+    productDiv.appendChild(button);
+
+    productContainer.appendChild(productDiv);
+  }
 </script>
 
 <script>
+  // Voeg een eventlistener toe aan de winkelmandknop
   const floatingCartButton = document.querySelector(".floating-cart-button");
 
   floatingCartButton.addEventListener("click", () => {
+    // Controleer of er al een winkelmand in localStorage staat
     const winkelmand = JSON.parse(localStorage.getItem("winkelmand")) || [];
+
+    // Sla de huidige winkelmand op in localStorage
     localStorage.setItem("winkelmand", JSON.stringify(winkelmand));
+
+    // Verwijs naar de winkelmandpagina
     window.location.href = "bestellen.html";
   });
 </script>
 
+<!-- Voeg de knop toe -->
 <button
   class="floating-cart-button"
   onclick="window.location.href='bestellen.html'"

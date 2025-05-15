@@ -168,20 +168,182 @@
       </p>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        Heb je vragen of wil je een afspraak maken? Neem contact met ons op!
-      </p>
-      <p>📍 Locatie: Abdijstraat 128, 2020 Antwerpen</p>
-      <p>📞 Telefoon: +32 335 38 45 19</p>
-      <p>✉️ E-mail: info@casa.cyclista.net</p>
-      <p>We helpen je graag verder! 🚲</p>
-    </section>
-
     <footer>
-      <p>&copy; 2025 casa cyclista - Alle rechten voorbehouden</p>
+      <div class="footer-mock">
+        <div class="footer-logo-center">
+          <img
+            src="https://i.postimg.cc/2yv09DRW/casa-cyclista-1.png"
+            alt="Casa Cyclista Logo"
+            class="footer-logo-img"
+          />
+          <span class="footer-slogan">De weg naar huis begint bij casa cyclista.</span>
+        </div>
+        <div>
+          <div class="footer-title">Producten</div>
+          <ul>
+            <li><a href="#producten">Alle fietsen</a></li>
+            <li>
+              <a
+                href="#"
+                onclick="navigateToSpecsFromFirebase('CasaVerde');return false;"
+                >CasaVerde</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="navigateToSpecsFromFirebase('CasaRide');return false;"
+                >CasaRide</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="navigateToSpecsFromFirebase('Cyclista Express');return false;"
+                >Cyclista Express</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="navigateToSpecsFromFirebase('CasaCarrier');return false;"
+                >CasaCarrier</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title">Informatie</div>
+          <ul>
+            <li><a href="Over_ons.html">Over ons</a></li>
+            <li><a href="verzending.html">Verzending</a></li>
+            <li><a href="retour.html">Retourbeleid</a></li>
+            <li><a href="garantie.html">Garantie</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-title">Contact</div>
+          <p><strong>Email:</strong> info@casa.cyclista.net</p>
+          <p><strong>Telefoon:</strong> +32 335 38 45 19</p>
+          <p><strong>Adres:</strong> Abdijstraat 128, 2020 Antwerpen, België</p>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-copyright">
+        &copy; 2025 casa cyclista - Alle rechten voorbehouden
+      </div>
     </footer>
+    <style>
+      .footer-mock {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        background: #8b4513;
+        color: #fff;
+        padding: 40px 60px 30px 60px;
+        font-size: 1.1rem;
+        margin-top: 60px;
+        gap: 30px;
+        min-height: 220px;
+        box-sizing: border-box;
+      }
+      .footer-mock > div {
+        flex: 1 1 0;
+        min-width: 180px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .footer-logo-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        margin-bottom: 10px;
+        justify-content: center;
+      }
+      .footer-logo-img {
+        width: 90px !important;
+        height: 90px !important;
+        margin-bottom: 0;
+        background: #fff;
+        border-radius: 12px;
+        object-fit: contain;
+        display: block;
+      }
+      .footer-slogan {
+        font-size: 1.18rem;
+        color: #fff;
+        margin-top: 8px;
+        font-style: italic;
+        letter-spacing: 0.2px;
+        text-align: center;
+        width: 100%;
+        display: block;
+      }
+      .footer-title {
+        font-weight: bold;
+        font-size: 1.25rem;
+        margin-bottom: 12px;
+        color: #fff;
+      }
+      .footer-mock ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-mock li {
+        margin-bottom: 8px;
+      }
+      .footer-mock a {
+        color: #fff;
+        text-decoration: none;
+        transition: text-decoration 0.2s;
+      }
+      .footer-mock a:hover {
+        text-decoration: underline;
+      }
+      .footer-contact p {
+        margin: 0 0 8px 0;
+        line-height: 1.6;
+      }
+      .footer-contact strong {
+        font-weight: bold;
+      }
+      .footer-divider {
+        border: none;
+        border-top: 1.5px solid #fff;
+        margin: 0 0 0 0;
+        width: 100%;
+        opacity: 0.5;
+      }
+      .footer-copyright {
+        background: #8b4513;
+        color: #fff;
+        text-align: center;
+        padding: 18px 0 10px 0;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+      }
+      @media (max-width: 900px) {
+        .footer-mock {
+          flex-direction: column;
+          gap: 30px;
+          padding: 30px 16px 20px 16px;
+          font-size: 1rem;
+          min-height: unset;
+        }
+        .footer-mock > div {
+          max-width: 100%;
+        }
+        .footer-logo-img {
+          width: 65px !important;
+          height: 65px !important;
+        }
+      }
+    </style>
 
     <script type="module">
       // Import the functions you need from the SDKs you need
@@ -214,7 +376,7 @@
       // Reference to the products collection
       const productsRef = collection(db, "products");
 
-      // Function to render products with lazy loading
+      // Function to render products with lazy loading and specs
       function renderProducts(doc) {
         const productContainer = document.getElementById("product-container");
         const productDiv = document.createElement("div");
@@ -223,7 +385,12 @@
         const img = document.createElement("img");
         img.src = doc.data().image;
         img.alt = doc.data().name;
-        img.loading = "lazy"; // Voeg lazy loading toe
+        img.loading = "lazy";
+        img.style.cursor = "pointer";
+        img.addEventListener("click", () => {
+          // Navigeer naar specs.html met het product-id als queryparameter
+          window.location.href = `specs.html?id=${doc.id}&type=product`;
+        });
 
         const h3 = document.createElement("h3");
         h3.textContent = doc.data().name;
@@ -264,7 +431,7 @@
       // Reference to the accessoires collection
       const accessoiresRef = collection(db, "accessoires");
 
-      // Function to render accessoires
+      // Function to render accessoires with specs
       function renderAccessoires(doc) {
         const accessoiresContainer = document.getElementById(
           "accessoires-container"
@@ -275,6 +442,11 @@
         const img = document.createElement("img");
         img.src = doc.data().image;
         img.alt = doc.data().name;
+        img.style.cursor = "pointer";
+        img.addEventListener("click", () => {
+          // Navigeer naar specs.html met het accessoire-id als queryparameter
+          window.location.href = `specs.html?id=${doc.id}&type=accessoire`;
+        });
 
         const h3 = document.createElement("h3");
         h3.textContent = doc.data().name;
@@ -313,6 +485,52 @@
           renderAccessoires(doc);
         });
       });
+
+      // Exporteer de Firestore database zodat het in de globale scope beschikbaar is
+      window._firestoreDB = db;
+    </script>
+    <script>
+      // Haal het juiste Firestore document-id op basis van de naam en navigeer naar specs
+      async function navigateToSpecsFromFirebase(name) {
+        if (!window._firestoreDB) {
+          // Fallback: navigeer met de naam als id
+          window.location.href = `specs.html?type=product&id=${encodeURIComponent(
+            name
+          )}`;
+          return;
+        }
+        // Firestore ophalen via window._firestoreDB
+        const db = window._firestoreDB;
+        // Dynamisch Firestore importeren als het niet bestaat
+        if (!window.firebaseFirestore) {
+          window.firebaseFirestore = await import(
+            "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js"
+          );
+        }
+        const { collection, getDocs } = window.firebaseFirestore;
+        const productsRef = collection(db, "products");
+        const snapshot = await getDocs(productsRef);
+        let foundId = null;
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          if (
+            data.name &&
+            data.name.trim().toLowerCase() === name.trim().toLowerCase()
+          ) {
+            foundId = doc.id;
+          }
+        });
+        if (foundId) {
+          window.location.href = `specs.html?type=product&id=${encodeURIComponent(
+            foundId
+          )}`;
+        } else {
+          // Fallback: navigeer met de naam als id
+          window.location.href = `specs.html?type=product&id=${encodeURIComponent(
+            name
+          )}`;
+        }
+      }
     </script>
     <script src="http://localhost:35729/livereload.js"></script>
   </body>

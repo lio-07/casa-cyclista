@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garantie - Casa Cyclista</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        background-color: #f5f5dc;
+        font-family: "Roboto", Arial, sans-serif;
+      }
+      .garantie-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+      }
+      .garantie-main,
+      .garantie-side {
+        flex: 1 1 350px;
+        min-width: 300px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        padding: 28px 24px;
+        box-shadow: 0 2px 8px rgba(139, 69, 19, 0.06);
+      }
+      .garantie-main h2,
+      .garantie-side h2 {
+        color: #335733;
+        font-size: 2.2rem;
+        margin-bottom: 18px;
+      }
+      .garantie-main h3,
+      .garantie-side h3 {
+        color: #335733;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        margin-top: 18px;
+      }
+      .garantie-main p,
+      .garantie-side p,
+      .garantie-main ul {
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+      .garantie-main ul {
+        margin: 0 0 12px 20px;
+        padding: 0;
+      }
+      .garantie-main li {
+        margin-bottom: 8px;
+      }
+      .garantie-main strong {
+        color: #335733;
+      }
+      .garantie-side {
+        background: #f5f5dc;
+        border: 1px solid #e0c9a6;
+      }
+      .garantie-side h3 {
+        margin-top: 30px;
+        font-size: 1.15rem;
+      }
+      .garantie-side ul {
+        margin: 0 0 12px 18px;
+        padding: 0;
+        color: #222;
+        font-size: 1.05rem;
+      }
+      .garantie-side li {
+        margin-bottom: 7px;
+      }
+      .garantie-faq-q {
+        font-weight: bold;
+        color: #335733;
+        margin-top: 18px;
+        margin-bottom: 2px;
+      }
+      @media (max-width: 900px) {
+        .garantie-container {
+          flex-direction: column;
+          gap: 20px;
+          padding: 18px 6px;
+        }
+        .garantie-main,
+        .garantie-side {
+          padding: 16px 8px;
+        }
+      }
+    </style>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        });
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div class="garantie-container">
+      <div class="garantie-main">
+        <h2>Garantiebeleid</h2>
+        <p>
+          Bij Casa Cyclista staan we volledig achter de kwaliteit van onze
+          producten. Daarom bieden we een uitgebreide garantie op al onze
+          fietsen:
+        </p>
+        <p>
+          <strong>Garantieperiode</strong><br />
+          <strong>Frame en vork:</strong> 5 jaar garantie tegen
+          fabricagefouten<br />
+          <strong>Elektrische componenten (motor, controller, display):</strong>
+          2 jaar garantie<br />
+          <strong>Accu:</strong> 2 jaar garantie of 500 laadcycli, wat het eerst
+          komt<br />
+          <strong>Overige onderdelen:</strong> 2 jaar garantie tegen
+          fabricagefouten
+        </p>
+        <h3>Wat valt onder de garantie?</h3>
+        <ul>
+          <li>Fabricagefouten en materiaalfouten bij normaal gebruik</li>
+          <li>
+            Scheuren of breuken in het frame die niet door een ongeval zijn
+            veroorzaakt
+          </li>
+          <li>Defecten in elektrische componenten bij normaal gebruik</li>
+          <li>
+            Voortijdige slijtage van onderdelen die niet als slijtageonderdelen
+            worden beschouwd
+          </li>
+        </ul>
+        <h3>Wat valt niet onder de garantie?</h3>
+        <ul>
+          <li>
+            Normale slijtage van onderdelen zoals banden, remblokken, kettingen,
+            etc.
+          </li>
+          <li>Schade veroorzaakt door ongevallen, misbruik of verwaarlozing</li>
+          <li>Schade door onjuiste montage of onderhoud</li>
+          <li>
+            Schade door modificaties die niet door Casa Cyclista zijn
+            goedgekeurd
+          </li>
+          <li>
+            Commercieel gebruik van de fiets (tenzij specifiek aangegeven)
+          </li>
+        </ul>
+        <h3>Hoe maak je aanspraak op garantie?</h3>
+        <p>
+          Neem contact met ons op via e-mail of telefoon, of breng je fiets naar
+          onze winkel. Houd je bestelnummer of aankoopbewijs bij de hand. Na
+          beoordeling zullen we het defecte onderdeel repareren of vervangen, of
+          in uitzonderlijke gevallen een vervangende fiets aanbieden.
+        </p>
+      </div>
+      <div class="garantie-side">
+        <h2>Onderhoudstips</h2>
+        <ul>
+          <li>
+            Houd je fiets schoon, vooral na ritten in modderige of natte
+            omstandigheden
+          </li>
+          <li>Controleer regelmatig de bandenspanning</li>
+          <li>Houd de ketting gesmeerd en schoon</li>
+          <li>Controleer regelmatig de remmen op slijtage</li>
+          <li>Laad de accu op voordat deze volledig leeg is</li>
+          <li>Bewaar de fiets op een droge plaats</li>
+          <li>Laat je fiets jaarlijks nakijken door een professional</li>
+        </ul>
+        <h3>Veelgestelde vragen</h3>
+        <div class="garantie-faq-q">Hoe lang duurt de garantie?</div>
+        <p>
+          De standaard garantie is 2 jaar op de meeste onderdelen, met 5 jaar op
+          het frame en de vork.
+        </p>
+        <div class="garantie-faq-q">Wat moet ik doen bij een defect?</div>
+        <p>
+          Neem contact met ons op via e-mail of telefoon, of breng je fiets naar
+          onze winkel. Houd je bestelnummer bij de hand.
+        </p>
+        <div class="garantie-faq-q">Dekt de garantie normale slijtage?</div>
+        <p>
+          Nee, normale slijtage van onderdelen zoals banden, remblokken en
+          kettingen valt niet onder de garantie.
+        </p>
+        <div class="garantie-faq-q">Kan ik de garantie overdragen?</div>
+        <p>
+          De garantie is alleen geldig voor de oorspronkelijke koper en is niet
+          overdraagbaar.
+        </p>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-mock">
+        <!-- ...existing footer code... -->
+      </div>
+    </footer>
+  </body>
+</html>

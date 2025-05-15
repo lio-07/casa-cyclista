@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verzending - Casa Cyclista</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        background-color: #f5f5dc;
+        font-family: "Roboto", Arial, sans-serif;
+      }
+      .verzending-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+      }
+      .verzendbeleid,
+      .verzend-faq {
+        flex: 1 1 350px;
+        min-width: 300px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        padding: 28px 24px;
+        box-shadow: 0 2px 8px rgba(139, 69, 19, 0.06);
+      }
+      .verzendbeleid h2,
+      .verzend-faq h2 {
+        color: #335733;
+        font-size: 2.2rem;
+        margin-bottom: 18px;
+      }
+      .verzendbeleid h3,
+      .verzend-faq h3 {
+        color: #335733;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        margin-top: 18px;
+      }
+      .verzendbeleid p,
+      .verzend-faq p {
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+      .verzend-faq .faq-q {
+        font-weight: bold;
+        color: #335733;
+        margin-top: 18px;
+        margin-bottom: 2px;
+      }
+      @media (max-width: 900px) {
+        .verzending-container {
+          flex-direction: column;
+          gap: 20px;
+          padding: 18px 6px;
+        }
+        .verzendbeleid,
+        .verzend-faq {
+          padding: 16px 8px;
+        }
+      }
+    </style>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        });
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div class="verzending-container">
+      <div class="verzendbeleid">
+        <h2>Verzending</h2>
+        <h3>Verzendbeleid</h3>
+        <p>
+          Bij Casa Cyclista streven we ernaar om je nieuwe fiets zo snel
+          mogelijk bij je te krijgen. Hier is wat je kunt verwachten:
+        </p>
+        <p>
+          <strong>Levertijden</strong><br />
+          Standaard levering: 5-7 werkdagen<br />
+          Express levering: 2-3 werkdagen (tegen meerprijs)
+        </p>
+        <p>
+          <strong>Verzendkosten</strong><br />
+          Alle fietsen worden gratis verzonden binnen België. Voor leveringen
+          naar andere landen kunnen extra kosten in rekening worden gebracht.
+        </p>
+        <p>
+          <strong>Verzendpartners</strong><br />
+          We werken samen met gespecialiseerde transportbedrijven die ervaring
+          hebben met het veilig vervoeren van fietsen. Je fiets wordt
+          professioneel verpakt om beschadiging tijdens transport te voorkomen.
+        </p>
+        <p>
+          <strong>Montage</strong><br />
+          Onze fietsen worden voor 90% gemonteerd geleverd. Je hoeft alleen nog
+          het stuur recht te zetten, de pedalen te monteren en de accu te
+          plaatsen. Een gedetailleerde handleiding wordt meegeleverd.
+        </p>
+      </div>
+      <div class="verzend-faq">
+        <h2>Veelgestelde vragen</h2>
+        <div class="faq-q">Hoe lang duurt de levering?</div>
+        <p>
+          Standaard levering duurt 5-7 werkdagen. Express levering is
+          beschikbaar in 2-3 werkdagen.
+        </p>
+        <div class="faq-q">Kan ik mijn bestelling volgen?</div>
+        <p>
+          Ja, je ontvangt een bestelnummer waarmee je de status kunt volgen via
+          onze pakket tracker.
+        </p>
+        <div class="faq-q">Wat als ik niet thuis ben bij levering?</div>
+        <p>
+          De bezorger zal proberen de fiets bij buren af te leveren of een
+          bericht achterlaten voor een nieuwe leveringspoging.
+        </p>
+        <div class="faq-q">Zijn er kosten voor verzending?</div>
+        <p>
+          Nee, verzending is gratis binnen België. Voor andere landen kunnen
+          kosten in rekening worden gebracht.
+        </p>
+        <div class="faq-q">Hoe is de fiets verpakt?</div>
+        <p>
+          Onze fietsen worden zorgvuldig verpakt in een stevige doos met
+          beschermend materiaal om schade tijdens transport te voorkomen.
+        </p>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-mock">
+        <!-- ...existing footer code... -->
+      </div>
+    </footer>
+  </body>
+</html>

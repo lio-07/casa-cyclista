@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retourbeleid - Casa Cyclista</title>
+    <link rel="stylesheet" href="casacyclista.css" />
+    <style>
+      body {
+        background-color: #f5f5dc;
+        font-family: "Roboto", Arial, sans-serif;
+      }
+      .retour-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+        padding: 40px 30px;
+      }
+      .retourbeleid, .retour-contact {
+        flex: 1 1 350px;
+        min-width: 300px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        padding: 28px 24px;
+        box-shadow: 0 2px 8px rgba(139,69,19,0.06);
+      }
+      .retourbeleid h2, .retour-contact h2 {
+        color: #335733;
+        font-size: 2.2rem;
+        margin-bottom: 18px;
+      }
+      .retourbeleid h3, .retour-contact h3 {
+        color: #335733;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        margin-top: 18px;
+      }
+      .retourbeleid p, .retour-contact p {
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+      .retourbeleid ul {
+        margin: 0 0 12px 20px;
+        padding: 0;
+        color: #222;
+        font-size: 1.1rem;
+      }
+      .retourbeleid li {
+        margin-bottom: 8px;
+      }
+      .retour-contact strong {
+        color: #335733;
+      }
+      @media (max-width: 900px) {
+        .retour-container {
+          flex-direction: column;
+          gap: 20px;
+          padding: 18px 6px;
+        }
+        .retourbeleid, .retour-contact {
+          padding: 16px 8px;
+        }
+      }
+    </style>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        });
+    </script>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div class="retour-container">
+      <div class="retourbeleid">
+        <h2>Retourbeleid</h2>
+        <h3>Ons Retourbeleid</h3>
+        <p>
+          Bij Casa Cyclista staan we volledig achter de kwaliteit van onze producten. We begrijpen echter dat er situaties kunnen zijn waarin je een product wilt retourneren. Hier is ons beleid:
+        </p>
+        <p>
+          <strong>Retourneren van fietsen</strong><br>
+          <span style="color:#8b4513;font-weight:bold;">Voor het retourneren van een fiets moet je deze naar onze winkel brengen.</span>
+          Vanwege de grootte en complexiteit van onze cargo fietsen, en om de veiligheid en functionaliteit te garanderen, accepteren we geen retourzendingen per post of koerier.
+        </p>
+        <p>
+          Ons adres:<br>
+          <strong>Casa Cyclista</strong><br>
+          Abdijstraat 128<br>
+          2020 Antwerpen<br>
+          België
+        </p>
+        <h3>Retourvoorwaarden</h3>
+        <ul>
+          <li>Je kunt je fiets binnen 14 dagen na ontvangst retourneren.</li>
+          <li>De fiets moet in originele staat zijn, zonder schade of overmatige slijtage.</li>
+          <li>Alle originele accessoires, handleidingen en verpakkingen moeten worden meegeleverd.</li>
+          <li>Breng je aankoopbewijs of bestelnummer mee.</li>
+        </ul>
+        <h3>Terugbetaling</h3>
+        <p>
+          Na inspectie van de geretourneerde fiets zullen we het aankoopbedrag terugbetalen via dezelfde betaalmethode die je hebt gebruikt voor de aankoop. Dit gebeurt binnen 14 dagen na ontvangst van de retour.
+        </p>
+        <h3>Defecte producten</h3>
+        <p>
+          Als je fiets defect is of niet voldoet aan onze kwaliteitsstandaarden, neem dan zo snel mogelijk contact met ons op. We zullen het probleem beoordelen en een passende oplossing bieden, zoals reparatie, vervanging of terugbetaling.
+        </p>
+      </div>
+      <div class="retour-contact">
+        <h2>Contact & Winkel</h2>
+        <p><strong>Adres:</strong><br>
+        Casa Cyclista<br>
+        Abdijstraat 128<br>
+        2020 Antwerpen<br>
+        België</p>
+        <p><strong>Openingstijden:</strong><br>
+        Maandag - Vrijdag: 10:00 - 18:00<br>
+        Zaterdag: 10:00 - 17:00<br>
+        Zondag: Gesloten</p>
+        <p><strong>Email:</strong> info@casa.cyclista.net<br>
+        <strong>Telefoon:</strong> +32 335 38 45 19</p>
+        <p>
+          Heb je vragen over het retourneren van je fiets? Neem gerust contact met ons op.
+        </p>
+        <iframe
+          src="https://www.google.com/maps?q=Abdijstraat+128,+2020+Antwerpen,+Belgi%C3%AB&output=embed"
+          width="100%"
+          height="180"
+          style="border:0;border-radius:8px;margin-top:10px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-mock">
+        <!-- ...existing footer code... -->
+      </div>
+    </footer>
+  </body>
+</html>
